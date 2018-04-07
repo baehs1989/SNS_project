@@ -1,0 +1,50 @@
+{% extends "groups/group_base.html" %}
+
+{% block pregroup %}
+  <div class="content col-md-4">
+    <h1>{{group.name}}</h1>
+    <h2>Member Count: {{group.get_users_counts}}</h2>
+    <h5>{{group.created_at|date:"M d, Y"}}</h5>
+    {% if user == group.admin %}
+      <a href="{% url 'groups:delete' slug=group.slug %}" class="btn btn-lg btn-fill btn-warning">
+        <span class="glyphicon glyphicon-remove-circle"></span>
+        Delete
+      </a>
+    {% else %}
+      {% if user in group.members.all %}
+        <a href="{% url 'groups:leave' slug=group.slug %}" class="btn btn-lg btn-fill btn-warning">
+          <span class="glyphicon glyphicon-remove-circle"></span>
+          Leave
+        </a>
+      {% else %}
+        <a href="{% url 'groups:join' slug=group.slug %}" class="btn btn-lg btn-fill btn-warning">
+          <span class="glyphicon glyphicon-ok-circle"></span>
+          Join
+        </a>
+      {% endif %}
+    {% endif %}
+
+
+  </div>
+{% endblock %}
+
+{% block postgroup %}
+  <div class="col-md-8">
+    <div class="jumbotron">
+      <h4>Creator:</h4>
+      <p><a href="{% url 'posts:for_user' username=admin.username %}">@{{group.admin}}</a></p>
+      <br>
+      <h4>Created Date:</h4>
+      <p>{{group.created_at|date:"M d, Y"}}</p>
+      <br>
+      <h4>Group Description:</h4>
+      <p class="lead">{{group.description_html|safe}}</p>
+      <br>
+      <h4>Group Members:</h4>
+        <a href="{% url 'posts:for_user' username=admin.username %}">@{{group.admin}}**</a>
+      {% for user in group.members.all %}
+        <a href="{% url 'posts:for_user' username=user.username %}">@{{user.username}}</a>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
