@@ -20,3 +20,4 @@ virtualenv-clone==0.3.0
 gunicorn
 uwsgi
 dj-database-url
+psycopg2
