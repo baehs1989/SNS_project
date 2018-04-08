@@ -17,4 +17,5 @@ six==1.11.0
 text-unidecode==1.1
 virtualenv==15.2.0
 virtualenv-clone==0.3.0
-wsgi
+gunicorn
+uwsgi
