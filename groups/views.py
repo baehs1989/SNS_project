@@ -15,10 +15,12 @@ User = get_user_model()
 from braces.views import SelectRelatedMixin
 from django.core.urlresolvers import reverse_lazy
 
+from . import forms
 
 
 class CreateGroup(LoginRequiredMixin, generic.CreateView):
     fields = ('name', 'description')
+    # form_class = forms.GroupCreateForm
     model = Group
 
     def form_valid(self,form):

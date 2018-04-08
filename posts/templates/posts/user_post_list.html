@@ -8,7 +8,7 @@
 
 {% block post_content %}
   <div class="col-md-8">
-    {% if post %}
+    {% if post_list %}
       {% for post in post_list %}
         {% include "posts/_post.html" %}
       {% endfor %}
