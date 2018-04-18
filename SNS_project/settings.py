@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -85,10 +86,10 @@ DATABASES = {
     }
 }
 
-import dj_database_url
-db_from_env = dj_database_url.config() #postgresSQL Database in heroku
-DATABASES['default'].update(db_from_env)
-DATABASES['default']['CONN_MAX_AGE'] = 500
+# import dj_database_url
+# db_from_env = dj_database_url.config() #postgresSQL Database in heroku
+# DATABASES['default'].update(db_from_env)
+# DATABASES['default']['CONN_MAX_AGE'] = 500
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -128,6 +129,16 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
+
+STATIC_ROOT = os.path.join(BASE_DIR, "live-static", "static-root")
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+#STATIC_ROOT = "/home/cfedeploy/webapps/cfehome_static_root/"
+
+MEDIA_URL = "/media/"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "live-static", "media-root")
 
 # LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'

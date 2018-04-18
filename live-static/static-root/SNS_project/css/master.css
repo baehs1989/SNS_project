@@ -1,0 +1,12 @@
+.mynav div.container{
+  background-color: #e3f2fd;
+}
+
+.container.main_page{
+  text-align: center;
+  margin-top: 2.0em;
+}
+
+body {
+  padding-top: 70px;
+}
