@@ -1,3 +1,7 @@
+body {
+  padding-top: 70px;
+}
+
 .mynav div.container{
   background-color: #e3f2fd;
 }
@@ -7,6 +11,11 @@
   margin-top: 2.0em;
 }
 
-body {
-  padding-top: 70px;
+/* Group Page */
+.side-nav{
+  position:fixed
+}
+
+.sub-list{
+  margin-left:40%
 }

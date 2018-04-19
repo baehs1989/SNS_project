@@ -2,7 +2,7 @@
 
 
 {% block pregroup %}
-  <div class="col-md-4 group_nav">
+  <div class="col-md-4 side-nav">
     <div class="content">
       {% if user.is_authenticated %}
         <h2>Welcome Back!
@@ -23,8 +23,8 @@
 {% endblock %}
 
 {% block group_content %}
-  <div class="col-md-6">
-    <div class="list-group">
+  <div class="col-md-6 sub-list">
+    <div>
       {% for group in group_list %}
         <a href="{% url 'groups:single' slug=group.slug %}" class='list-group-item'>
           <h3 class='title list-group-item-heading'>{{group.name}}</h3>

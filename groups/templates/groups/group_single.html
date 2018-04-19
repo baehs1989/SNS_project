@@ -1,7 +1,7 @@
 {% extends "groups/group_base.html" %}
 
 {% block pregroup %}
-  <div class="content col-md-4">
+  <div class="content col-md-4 side-nav">
     <a href="{% url 'groups:detail' slug=group.slug %}"><h1>{{group.name}}</h1></a>
     <h2>Member Count: {{group.get_users_counts}}</h2>
     <h5>{{group.created_at|date:"M d, Y"}}</h5>
@@ -30,7 +30,7 @@
 
 
 {% block group_content %}
-  <div class="col-md-8">
+  <div class="col-md-6 sub-list">
     {% if group.posts.count == 0 %}
       <h2>No posts in this group yet!</h2>
     {% else %}
