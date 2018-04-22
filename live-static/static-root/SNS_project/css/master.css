@@ -1,5 +1,13 @@
+body {
+  padding-top: 45px;
+}
+
 .mynav div.container{
   background-color: #e3f2fd;
+}
+
+.container.form{
+  padding:1.5em;
 }
 
 .container.main_page{
@@ -7,6 +15,29 @@
   margin-top: 2.0em;
 }
 
-body {
-  padding-top: 70px;
+/* Group Page */
+.side-nav{
+  position:fixed;
+  z-index:1;
+  background-color: white;
+  padding: 2em;
+}
+
+
+.icon-bar{
+  background-color:#337ab7;
+}
+
+@media (min-width: 250px){
+.col-sm-10.sub-list {
+    margin-top: 20em;
+    margin-left:0;
+  }
+}
+
+@media (min-width: 992px){
+.col-md-6.sub-list {
+    margin-top: 4em;
+    margin-left:40%;
+  }
 }
