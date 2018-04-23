@@ -60,7 +60,7 @@ class CreatePost(LoginRequiredMixin,SelectRelatedMixin,generic.CreateView):
     model = models.Post
 
     def get_success_url(self):
-        return reverse_lazy('groups:single', kwargs={'slug': self.object.group})
+        return reverse_lazy('groups:single', kwargs={'slug': self.object.group.slug})
 
     def get_form_kwargs(self):
         kwargs = super(CreatePost, self).get_form_kwargs()
