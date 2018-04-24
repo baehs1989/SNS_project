@@ -27,6 +27,7 @@ class CreateGroup(LoginRequiredMixin, generic.CreateView):
         self.object = form.save(commit=False)
         self.object.admin = self.request.user
         self.object.save()
+        GroupMember.objects.create(user=self.request.user, group=self.object)
         return super().form_valid(form)
 
 class SingleGroup(generic.DetailView):
@@ -47,7 +48,7 @@ class JoinGroup(LoginRequiredMixin,generic.RedirectView):
         group = get_object_or_404(Group, slug=self.kwargs.get('slug'))
         try:
             GroupMember.objects.create(user=self.request.user, group=group)
-        except IntegrityError:
+        except:
             messages.warning(self.request,'Warning already a member!')
         else:
             messages.success(self.request, 'Your are now a member!')

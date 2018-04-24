@@ -29,17 +29,35 @@ body {
 }
 
 @media (min-width: 250px){
-.col-sm-10.sub-list {
-    margin-top: 20em;
-    margin-left:0;
+  .col-sm-10.sub-list {
+      margin-top: 15em;
+      margin-left:0;
+  }
+  .side-nav{
+    font-size: 1.0em;
+  }
+  .side-nav h1 {
+    font-size: 1.4em;
+  }
+  .side-nav h2 {
+    font-size: 1.2em;
   }
 }
 
 
-
 @media (min-width: 992px){
-.col-md-6.sub-list {
-    margin-top: 4em;
-    margin-left:40%;
+  .col-md-6.sub-list {
+      margin-top: 4em;
+      margin-left:40%;
   }
+  .side-nav{
+    font-size: 2.0em;
+  }
+  .side-nav h1 {
+    font-size: 1.0em;
+  }
+  .side-nav h2 {
+    font-size: 1.0em;
+  }
+
 }

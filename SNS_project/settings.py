@@ -142,3 +142,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "live-static", "media-root")
 
 # LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+SESSION_COOKIE_AGE = 10 * 60

@@ -29,7 +29,7 @@
 {% endblock %}
 
 {% block postgroup %}
-  <div class="col-md-8">
+  <div class="col-md-8" style="margin-top:10px;">
     <div class="jumbotron">
       <h4>Creator:</h4>
       <p><a href="{% url 'posts:for_user' username=admin.username %}">@{{group.admin}}</a></p>

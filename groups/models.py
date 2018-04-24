@@ -34,7 +34,7 @@ class Group(models.Model):
         return reverse('groups:single',kwargs={'slug':self.slug})
 
     def get_users_counts(self):
-        count = self.members.all().count() + 1
+        count = self.members.all().count()
         return count
 
     class Meta:
