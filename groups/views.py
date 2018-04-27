@@ -17,8 +17,10 @@ from django.core.urlresolvers import reverse_lazy
 
 from . import forms
 
+from counter.views import CookieRenewerMixin
 
-class CreateGroup(LoginRequiredMixin, generic.CreateView):
+
+class CreateGroup(CookieRenewerMixin, LoginRequiredMixin, generic.CreateView):
     fields = ('name', 'description')
     # form_class = forms.GroupCreateForm
     model = Group
@@ -30,16 +32,16 @@ class CreateGroup(LoginRequiredMixin, generic.CreateView):
         GroupMember.objects.create(user=self.request.user, group=self.object)
         return super().form_valid(form)
 
-class SingleGroup(generic.DetailView):
+class SingleGroup(CookieRenewerMixin, generic.DetailView):
     model = Group
     template_name = "groups/group_single.html"
 
-class ListGroups(generic.ListView):
+class ListGroups(CookieRenewerMixin, generic.ListView):
     model = Group
     # context_object_name = 'group_list'
 
 
-class JoinGroup(LoginRequiredMixin,generic.RedirectView):
+class JoinGroup(CookieRenewerMixin, LoginRequiredMixin,generic.RedirectView):
     def get_redirect_url(self,*args,**kwargs):
         return reverse('groups:single', kwargs={'slug':self.kwargs.get('slug')})
 

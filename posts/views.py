@@ -18,12 +18,13 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 from django.db.models import Prefetch
+from counter.views import CookieRenewerMixin
 
-class PostList(SelectRelatedMixin,generic.ListView):
+class PostList(CookieRenewerMixin, SelectRelatedMixin,generic.ListView):
     model = models.Post
     select_related = ('user', 'group')
 
-class UserPosts(generic.ListView):
+class UserPosts(CookieRenewerMixin, generic.ListView):
     model = models.Post
     template_name = 'posts/user_post_list.html'
     # context_object_name = 'schools'
@@ -43,7 +44,7 @@ class UserPosts(generic.ListView):
         context['post_user'] = self.post_user
         return context
 
-class PostDetail(SelectRelatedMixin, generic.DetailView):
+class PostDetail(CookieRenewerMixin, SelectRelatedMixin, generic.DetailView):
     model = models.Post
     select_related = ('user', 'group')
     template_name = 'posts/post_detail.html'
@@ -53,7 +54,7 @@ class PostDetail(SelectRelatedMixin, generic.DetailView):
         queryset = super().get_queryset()
         return queryset.filter(user__username__iexact=self.kwargs.get('username'))
 
-class CreatePost(LoginRequiredMixin,SelectRelatedMixin,generic.CreateView):
+class CreatePost(CookieRenewerMixin, LoginRequiredMixin,SelectRelatedMixin,generic.CreateView):
     # fields = ('message', 'group')
     select_related = ('user', 'group')
     form_class = forms.PostForm
@@ -77,7 +78,7 @@ class CreatePost(LoginRequiredMixin,SelectRelatedMixin,generic.CreateView):
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 
-class DeletePost(LoginRequiredMixin,SelectRelatedMixin,generic.DeleteView):
+class DeletePost(CookieRenewerMixin, LoginRequiredMixin,SelectRelatedMixin,generic.DeleteView):
     model = models.Post
     select_related = ('user', 'group')
     success_url = reverse_lazy('posts:all')

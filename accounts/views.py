@@ -11,19 +11,21 @@ from . import forms
 from django.template import TemplateDoesNotExist
 from django.http import Http404
 
+from counter.views import CookieRenewerMixin
 
 
-class SuccessPage(generic.TemplateView):
+
+class SuccessPage(CookieRenewerMixin, generic.TemplateView):
     template_name = "accounts/success.html"
 
 
 #lets test with different class name
-class SignUp(generic.CreateView):
+class SignUp(CookieRenewerMixin, generic.CreateView):
     form_class = forms.UserCreateForm
     success_url = reverse_lazy('login')
     template_name = 'accounts/signup.html'
 
-class CustomLogin(auth_views.LoginView):
+class CustomLogin(CookieRenewerMixin, auth_views.LoginView):
     template_name = 'accounts/login.html'
 
     def get_context_data(self, **kwargs):
