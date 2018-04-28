@@ -3,7 +3,7 @@ from django.contrib import messages
 
 # Create your views here.
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse_lazy, reverse
 
 from django.http import Http404
 from django.views import generic
@@ -21,6 +21,9 @@ User = get_user_model()
 
 from django.db.models import Prefetch
 from counter.views import CookieRenewerMixin
+
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 
 class PostList(CookieRenewerMixin, SelectRelatedMixin,generic.ListView):
     model = models.Post
@@ -75,7 +78,7 @@ class CreatePost(CookieRenewerMixin, LoginRequiredMixin,SelectRelatedMixin,gener
         self.object = form.save(commit=False)
         self.object.user = self.request.user
         self.object.save()
-        print (self.object.get_absolute_url())
+        # print (self.object.get_absolute_url())
         return super().form_valid(form)
 
 
@@ -88,19 +91,33 @@ class CreatePost2(CookieRenewerMixin, LoginRequiredMixin,SelectRelatedMixin,gene
     def get_success_url(self):
         return reverse_lazy('groups:single', kwargs={'slug': self.object.group.slug})
 
+    def get_form_kwargs(self):
+        kwargs = super(CreatePost2, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
 
     def form_valid(self,form):
         group = Group.objects.get(slug=self.kwargs.get('slug'))
         self.object = form.save(commit=False)
-        self.object.user = self.request.user
-        self.object.group = group
-        self.object.save()
-        return super().form_valid(form)
+        if group.is_user_group_member(self.request.user):
+            self.object.user = self.request.user
+            self.object.group = group
+            self.object.save()
+            return super().form_valid(form)
+        else:
+            messages.error(self.request, 'blabla')
+            return HttpResponseRedirect(reverse('groups:single', kwargs={'slug': group.slug}))
+
+        # group = Group.objects.get(slug=self.kwargs.get('slug'))
+        # self.object = form.save(commit=False)
+        # self.object.user = self.request.user
+        # self.object.group = group
+        # self.object.save()
+        # return super().form_valid(form)
 
 
 
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+
 
 class DeletePost(CookieRenewerMixin, LoginRequiredMixin,SelectRelatedMixin,generic.DeleteView):
     model = models.Post

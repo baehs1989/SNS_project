@@ -2,10 +2,10 @@
 
 
 {% block pregroup %}
-  <div class="col-md-4 col-sm-10 side-nav">
+  <div class="col-md-4 col-sm-10 group-side-nav">
     <div class="content">
       {% if user.is_authenticated %}
-        <h2>Welcome Back!
+        <h2>Welcome Back!<br/>
           <a href="{% url 'posts:for_user' username=user.username %}">@{{user.username}}
           </a>
         </h2>
@@ -23,7 +23,7 @@
 {% endblock %}
 
 {% block group_content %}
-  <div class="col-md-6 col-sm-10 sub-list">
+  <div class="col-md-6 col-sm-10 group-sub-list">
     <div>
       {% for group in group_list %}
         <a href="{% url 'groups:single' slug=group.slug %}" class='list-group-item'>

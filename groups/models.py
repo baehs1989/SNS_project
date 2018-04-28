@@ -37,6 +37,9 @@ class Group(models.Model):
         count = self.members.all().count()
         return count
 
+    def is_user_group_member(self, user):
+        return user in self.members.all()
+
     class Meta:
         ordering = ['-created_at']
         unique_together = ['admin', 'name']

@@ -1,48 +1,65 @@
 {% extends "groups/group_base.html" %}
 {% load bootstrap4 %}
+{% load staticfiles %}
 
 {% block pregroup %}
-  <div class="content col-md-4 col-sm-10 side-nav">
-    <a href="{% url 'groups:detail' slug=group.slug %}"><h1>{{group.name}}</h1></a>
-    <h2>Member Count: {{group.get_users_counts}}</h2>
-    <h5>{{group.created_at|date:"M d, Y"}}</h5>
-    {% if user == group.admin %}
-      <a href="{% url 'groups:delete' slug=group.slug %}" class="btn btn-lg btn-fill btn-warning">
-        <span class="glyphicon glyphicon-remove-circle"></span>
-        Delete
-      </a>
-    {% else %}
-      {% if user in group.members.all %}
-        <a href="{% url 'groups:leave' slug=group.slug %}" class="btn btn-lg btn-fill btn-warning">
+  <div class="content container col-md-12 side-nav">
+    <div class="col-md-4">
+      <a href="{% url 'groups:detail' slug=group.slug %}"><h1>{{group.name}}</h1></a>
+      <h2>Member Count: {{group.get_users_counts}}</h2>
+      <h5>{{group.created_at|date:"M d, Y"}}</h5>
+      {% if user == group.admin %}
+        <a href="{% url 'groups:delete' slug=group.slug %}" class="btn btn-lg btn-fill btn-warning">
           <span class="glyphicon glyphicon-remove-circle"></span>
-          Leave
+          Delete
         </a>
       {% else %}
-        <a href="{% url 'groups:join' slug=group.slug %}" class="btn btn-lg btn-fill btn-warning">
-          <span class="glyphicon glyphicon-ok-circle"></span>
-          Join
-        </a>
+        {% if user in group.members.all %}
+          <a href="{% url 'groups:leave' slug=group.slug %}" class="btn btn-lg btn-fill btn-warning">
+            <span class="glyphicon glyphicon-remove-circle"></span>
+            Leave
+          </a>
+        {% else %}
+          <a href="{% url 'groups:join' slug=group.slug %}" class="btn btn-lg btn-fill btn-warning">
+            <span class="glyphicon glyphicon-ok-circle"></span>
+            Join
+          </a>
+        {% endif %}
       {% endif %}
-    {% endif %}
+    </div>
 
+    <div class="col-md-6">
+      <form id='postFormInGroup' action="{% url 'posts:create2' slug=group.slug %}" method="post">
+        {% csrf_token %}
+        {{form.message}}
+        <input type="submit" class="btn btn-primary btn-large posting {% if user not in group.members.all %}error{% endif %}" value="Post">
+      </form>
+    </div>
 
   </div>
 {% endblock %}
 
 
 {% block group_content %}
-  <div class="col-md-6 col-sm-10 sub-list">
-    <form id='postForm' action="{% url 'posts:create2' slug=group.slug %}" method="post">
-      {% csrf_token %}
-      {{form}}
-      <input type="submit" class="btn btn-primary btn-large" value="Post">
-    </form>
-    {% if group.posts.count == 0 %}
-      <h2>No posts in this group yet!</h2>
-    {% else %}
-      {% for post in group.posts.all %}
-          {% include "posts/_post.html" %}
-      {% endfor %}
-    {% endif %}
+  <div class="col-md-12 sub-list container">
+    <div class="col-md-5">
+
+    </div>
+    <div class="col-md-6">
+      {% if group.posts.count == 0 %}
+        <h2>No posts in this group yet!</h2>
+      {% else %}
+        {% for post in group.posts.all %}
+            {% include "posts/_post.html" %}
+        {% endfor %}
+      {% endif %}
+    </div>
+
   </div>
 {% endblock %}
+
+{% if user in group.members.all %}
+  {% block jsscript %}
+    <script type="text/javascript" src="{% static 'SNS_project/js/post_check.js' %}"></script>
+  {% endblock %}}
+{% endif %}

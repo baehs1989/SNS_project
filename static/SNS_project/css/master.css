@@ -15,7 +15,20 @@ body {
   margin-top: 2.0em;
 }
 
-/* Group Page */
+
+.group-side-nav{
+  position:fixed;
+  z-index:1;
+  background-color: white;
+  padding: 2em;
+  margin-left: 1em;
+}
+
+.group-sub-list{
+  margin-top:4em;
+  margin-left:40%;
+}
+
 .side-nav{
   position:fixed;
   z-index:1;
@@ -23,18 +36,30 @@ body {
   padding: 2em;
 }
 
-
 .icon-bar{
   background-color:#337ab7;
 }
 
+form#postFormInGroup {
+  padding-top:1.5em;
+}
+form#postFormInGroup textarea{
+  border: 1px solid grey;
+  width: 100%;
+  height: 6em;
+}
+
+
 @media (min-width: 250px){
-  .col-sm-10.sub-list {
-      margin-top: 15em;
+  .sub-list {
+      margin-top: 21em;
       margin-left:0;
   }
   .side-nav{
     font-size: 1.0em;
+    width:100%;
+    padding-top:0em;
+    padding-bottom:0em;
   }
   .side-nav h1 {
     font-size: 1.4em;
@@ -42,15 +67,42 @@ body {
   .side-nav h2 {
     font-size: 1.2em;
   }
+  a.btn.btn-lg{
+    font-size:0.5em;
+  }
+
+  /* Group page */
+  .group-side-nav{
+    font-size: 1.0em;
+    width:100%;
+    padding-top:0em;
+    padding-bottom:0em;
+  }
+
+  .group-side-nav h2 {
+    font-size: 1.2em;
+  }
+
+  .group-sub-list{
+    margin-left:0em;
+    margin-top:14em;
+  }
 }
 
 
 @media (min-width: 992px){
-  .col-md-6.sub-list {
-      margin-top: 4em;
-      margin-left:40%;
+  form#postFormInGroup {
+    padding-top:1.5em;
   }
+  form#postFormInGroup textarea{
+    border: 1px solid grey;
+    width: 100%;
+    height: 3em;
+  }
+
   .side-nav{
+    padding-top:1em;
+    padding-bottom:1em;
     font-size: 2.0em;
   }
   .side-nav h1 {
@@ -60,4 +112,28 @@ body {
     font-size: 1.0em;
   }
 
+  .col-md-12.sub-list {
+      margin-top: 17em;
+  }
+  a.btn.btn-lg{
+    font-size:0.7em;
+  }
+
+  /* Group page */
+  .group-side-nav{
+    font-size: 1.0em;
+    margin-top:4em;
+    width:30%;
+    padding-top:0em;
+    padding-bottom:0em;
+  }
+
+  .group-side-nav h2 {
+    font-size: 2.0em;
+  }
+
+  .group-sub-list{
+    margin-top:4em;
+    margin-left:40%;
+  }
 }
