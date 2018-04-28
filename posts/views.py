@@ -14,6 +14,8 @@ from braces.views import SelectRelatedMixin
 from . import models
 from . import forms
 
+from groups.models import Group
+
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -54,6 +56,7 @@ class PostDetail(CookieRenewerMixin, SelectRelatedMixin, generic.DetailView):
         queryset = super().get_queryset()
         return queryset.filter(user__username__iexact=self.kwargs.get('username'))
 
+
 class CreatePost(CookieRenewerMixin, LoginRequiredMixin,SelectRelatedMixin,generic.CreateView):
     # fields = ('message', 'group')
     select_related = ('user', 'group')
@@ -75,14 +78,37 @@ class CreatePost(CookieRenewerMixin, LoginRequiredMixin,SelectRelatedMixin,gener
         print (self.object.get_absolute_url())
         return super().form_valid(form)
 
+
+class CreatePost2(CookieRenewerMixin, LoginRequiredMixin,SelectRelatedMixin,generic.CreateView):
+    # fields = ('message', 'group')
+    select_related = ('user', 'group')
+    form_class = forms.PostForm2
+    model = models.Post
+
+    def get_success_url(self):
+        return reverse_lazy('groups:single', kwargs={'slug': self.object.group.slug})
+
+
+    def form_valid(self,form):
+        group = Group.objects.get(slug=self.kwargs.get('slug'))
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.group = group
+        self.object.save()
+        return super().form_valid(form)
+
+
+
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 
 class DeletePost(CookieRenewerMixin, LoginRequiredMixin,SelectRelatedMixin,generic.DeleteView):
     model = models.Post
     select_related = ('user', 'group')
-    success_url = reverse_lazy('posts:all')
+    # success_url = reverse_lazy('posts:all')
 
+    def get_success_url(self):
+        return reverse_lazy('groups:single', kwargs={'slug': self.object.group.slug})
     # def get_queryset(self):
     #     queryset = super().get_queryset()
     #     return queryset.filter(user_id = self.request.user.id)

@@ -1,4 +1,5 @@
 {% extends "groups/group_base.html" %}
+{% load bootstrap4 %}
 
 {% block pregroup %}
   <div class="content col-md-4 col-sm-10 side-nav">
@@ -31,6 +32,11 @@
 
 {% block group_content %}
   <div class="col-md-6 col-sm-10 sub-list">
+    <form id='postForm' action="{% url 'posts:create2' slug=group.slug %}" method="post">
+      {% csrf_token %}
+      {{form}}
+      <input type="submit" class="btn btn-primary btn-large" value="Post">
+    </form>
     {% if group.posts.count == 0 %}
       <h2>No posts in this group yet!</h2>
     {% else %}

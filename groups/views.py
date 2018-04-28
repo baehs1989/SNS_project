@@ -16,6 +16,7 @@ from braces.views import SelectRelatedMixin
 from django.core.urlresolvers import reverse_lazy
 
 from . import forms
+from posts.forms import PostForm2
 
 from counter.views import CookieRenewerMixin
 
@@ -35,6 +36,11 @@ class CreateGroup(CookieRenewerMixin, LoginRequiredMixin, generic.CreateView):
 class SingleGroup(CookieRenewerMixin, generic.DetailView):
     model = Group
     template_name = "groups/group_single.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(SingleGroup, self).get_context_data(**kwargs)
+        context['form'] = PostForm2
+        return context
 
 class ListGroups(CookieRenewerMixin, generic.ListView):
     model = Group
