@@ -9,6 +9,7 @@ pip-selfcheck.json
 # src/<yourproject>/settings/local.py
 # static-cdn/  # any collected static files
 
+*.sqlite3
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
