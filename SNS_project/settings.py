@@ -26,7 +26,7 @@ SECRET_KEY = '*$_0^$kq86n7$_=@tejv*rn+d10@-=lyvtr+ll5zur$hs$lh)y'
 DEBUG = False
 
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['.herokuapp.com','sns-project.herokuapp.com']
+ALLOWED_HOSTS = ['.herokuapp.com','sns-project.herokuapp.com/*']
 
 
 # Application definition
