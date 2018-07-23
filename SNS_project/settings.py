@@ -21,7 +21,8 @@ TEMPLATES_DIR = os.path.join(BASE_DIR,'templates')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = '*$_0^$kq86n7$_=@tejv*rn+d10@-=lyvtr+ll5zur$hs$lh)y'
-os.environ['APP_SECRET_KEY']
+# os.environ['APP_SECRET_KEY']
+SECRET_KEY = os.environ.get('APP_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
