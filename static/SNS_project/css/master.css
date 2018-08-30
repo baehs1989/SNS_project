@@ -51,10 +51,12 @@ form#postFormInGroup textarea{
 
 
 @media (min-width: 250px){
+  /*
   .container{
     padding-right: 50px;
     padding-left: 50px; 
   }
+  */
   .sub-list {
       margin-top: 21em;
       margin-left:0;
@@ -96,10 +98,12 @@ form#postFormInGroup textarea{
 
 
 @media (min-width: 992px){
+  /*
   .container{
     padding-right: 15px;
     padding-left: 15px; 
   }
+  */
   
   
   form#postFormInGroup {
