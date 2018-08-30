@@ -124,6 +124,7 @@ form#postFormInGroup textarea{
     font-size: 1.0em;
     margin-top:4em;
     width:30%;
+    max-width:360px;
     padding-top:0em;
     padding-bottom:0em;
   }
