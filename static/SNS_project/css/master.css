@@ -51,6 +51,10 @@ form#postFormInGroup textarea{
 
 
 @media (min-width: 250px){
+  .container{
+    padding-right: 50px;
+    padding-left: 50px; 
+  }
   .sub-list {
       margin-top: 21em;
       margin-left:0;
@@ -60,6 +64,7 @@ form#postFormInGroup textarea{
     width:100%;
     padding-top:0em;
     padding-bottom:0em;
+    max-width: 780px;
   }
   .side-nav h1 {
     font-size: 1.4em;
@@ -91,6 +96,12 @@ form#postFormInGroup textarea{
 
 
 @media (min-width: 992px){
+  .container{
+    padding-right: 15px;
+    padding-left: 15px; 
+  }
+  
+  
   form#postFormInGroup {
     padding-top:1.5em;
   }
@@ -104,6 +115,7 @@ form#postFormInGroup textarea{
     padding-top:1em;
     padding-bottom:1em;
     font-size: 2.0em;
+    max-width: 1400px;
   }
   .side-nav h1 {
     font-size: 1.0em;
